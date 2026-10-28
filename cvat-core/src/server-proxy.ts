@@ -17,7 +17,7 @@ import {
     SerializedRegister, SerializedJob, SerializedGuide, SerializedAsset, SerializedAPISchema,
     SerializedInvitationData, SerializedCloudStorage, SerializedFramesMetaData, SerializedCollection,
     SerializedRequest, SerializedJobValidationLayout, SerializedTaskValidationLayout, SerializedConsensusSettingsData,
-    SerializedApiToken, SerializedUserGrowthData,
+    SerializedApiToken, SerializedUserGrowthData, SerializedLabelCounts,
 } from './server-response-types';
 import {
     SerializedQualityConflictData, SerializedQualityReportData,
@@ -29,6 +29,7 @@ import {
     ProjectsFilter, TasksFilter, JobsFilter,
     APIQualitySettingsFilter, APIQualityConflictsFilter, APIQualityReportsFilter,
     APIAnalyticsEventsFilter, APIConsensusSettingsFilter, APIApiTokensFilter, APIQualityRequirementsFilter,
+    APILabelCountsFilter,
 } from './server-request-types';
 import { PaginatedResource, SerializedModel, UpdateStatusData } from './core-types';
 import { Storage } from './storage';
@@ -2528,6 +2529,19 @@ async function createAsset(file: File, guideId: number): Promise<SerializedAsset
     }
 }
 
+async function getLabelCounts(taskID: number, params: APILabelCountsFilter): Promise<SerializedLabelCounts> {
+    const { backendAPI } = config;
+
+    try {
+        const response = await Axios.get(`${backendAPI}/annotation-analytics/tasks/${taskID}/label-counts`, {
+            params,
+        });
+        return response.data;
+    } catch (errorData) {
+        throw generateError(errorData);
+    }
+}
+
 async function getQualitySettings(
     filter: APIQualitySettingsFilter,
     aggregate?: boolean,
@@ -2912,6 +2926,7 @@ export default Object.freeze({
     }),
 
     analytics: Object.freeze({
+        labelCounts: getLabelCounts,
         quality: Object.freeze({
             reports: getQualityReports,
             conflicts: getQualityConflicts,

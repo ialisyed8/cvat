@@ -424,6 +424,10 @@ function build(): CVATCore {
             },
         },
         analytics: {
+            async labelCounts(taskID, filter = {}) {
+                const result = await PluginRegistry.apiWrapper(cvat.analytics.labelCounts, taskID, filter);
+                return result;
+            },
             events: {
                 async export(filter = {}) {
                     const result = await PluginRegistry.apiWrapper(cvat.analytics.events.export, filter);

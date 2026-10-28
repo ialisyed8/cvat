@@ -92,6 +92,11 @@ export interface APIAnalyticsEventsFilter {
 }
 export type AnalyticsEventsFilter = CamelizedV2<APIAnalyticsEventsFilter>;
 
+export interface APILabelCountsFilter {
+    group_by?: 'shape_type';
+}
+export type LabelCountsFilter = CamelizedV2<APILabelCountsFilter>;
+
 export type APIOrganizationMembersFilter = APICommonFilterParams;
 export type OrganizationMembersFilter = Camelized<APIOrganizationMembersFilter>;
 

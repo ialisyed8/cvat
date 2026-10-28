@@ -65,3 +65,14 @@ export type PaginatedResource<T> = T[] & {
     count: number;
     next?: string;
 };
+
+export interface LabelCounts {
+    taskId: number;
+    groupBy: 'shape_type' | null;
+    total: number;
+    results: {
+        label: string;
+        shapeType?: ShapeType;
+        count: number;
+    }[];
+}
