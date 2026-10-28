@@ -1,0 +1,32 @@
+# Commits on dev-test01 since 4a09e27ff (2026-10-29T02:54:19+05:00)
+$ git log --reverse --format='%h %ad %s' --date=format:'%H:%M' 4a09e27ff..HEAD
+807aa774b 01:26 Add plan, objective MO-1 and Definition of Done for annotation analytics
+35d3343a6 01:44 Add test app with per-label annotation count endpoint for tasks
+123346db9 01:46 Record evidence for endpoint access control and count correctness
+597e52669 01:48 Add group_by=shape_type to split label counts by shape type
+58e0cb4c2 01:50 Measure MO-1 and record that it is missed under basic auth
+51ea565cd 02:12 Add core.analytics.labelCounts to request per-label counts in cvat-core
+743389a35 02:12 Show per-label annotation counts as a bar chart on the task analytics page
+c9029920a 02:13 Update API schema and changelog for the label-counts endpoint
+759345a09 02:42 Push label counts over a WebSocket when they change
+28cf48c78 02:42 Keep the label-counts chart live and reconnect when the socket drops
+2caba7e0b 02:45 Mention live label-count updates in the changelog fragment
+524af14d8 02:45 Record browser, WebSocket and lint evidence for the analytics page
+756be27e9 02:52 Add Django tests for label counts access, counting and grouping
+30ea7323f 02:53 Record changes during work, decision record and ticked Definition of Done
+(this file is added by the commit after the last one listed)
+
+$ git show --stat --format='%h %s' 807aa774b   (first commit: docs only)
+807aa774b Add plan, objective MO-1 and Definition of Done for annotation analytics
+
+ docs/DEFINITION_OF_DONE.md | 42 ++++++++++++++++++++++++++++++++++++++++++
+ docs/OBJECTIVES.md         | 18 ++++++++++++++++++
+ docs/PLAN.md               | 41 +++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 101 insertions(+)
+
+$ git diff --shortstat 4a09e27ff..HEAD
+ 51 files changed, 2156 insertions(+), 6 deletions(-)
+
+# Pull request (fork only: ialisyed8/cvat, dev-test01 -> main)
+url: https://github.com/ialisyed8/cvat/pull/1
+base: main  head: dev-test01  cross-repository: false
