@@ -1,0 +1,27 @@
+# Django unit tests for cvat/apps/test (2026-10-29T02:52:12+05:00, code of the commit that adds these tests, on top of 524af14d8)
+# Run like CI's 'manage.py test' (cvat.settings.testing, sqlite) in a one-off cvat/server:dev container that
+# shares cvat_opa's network namespace, so the real OPA rules decide access; dev-only test deps
+# (django-extensions 4.1, fakeredis 2.40.0) mounted on PYTHONPATH; throwaway Redis on localhost:6379/6666.
+$ python manage.py test cvat.apps.test -v 2   (migration output omitted)
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 6 test(s).
+
+test_counts_per_label_across_jobs (cvat.apps.test.tests.test_label_counts.LabelCountsTest.test_counts_per_label_across_jobs) ... ok
+test_group_by_shape_type (cvat.apps.test.tests.test_label_counts.LabelCountsTest.test_group_by_shape_type) ... ok
+test_missing_task (cvat.apps.test.tests.test_label_counts.LabelCountsTest.test_missing_task) ... ok
+test_refuses_user_without_task_access (cvat.apps.test.tests.test_label_counts.LabelCountsTest.test_refuses_user_without_task_access) ... ok
+test_rejects_unknown_grouping (cvat.apps.test.tests.test_label_counts.LabelCountsTest.test_rejects_unknown_grouping) ... ok
+test_requires_login (cvat.apps.test.tests.test_label_counts.LabelCountsTest.test_requires_login) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.632s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+System check identified no issues (0 silenced).
+
+# Mutation check: with 'parent__isnull=True' removed from views.py the suite fails as expected:
+FAIL: test_counts_per_label_across_jobs (user='admin')  total 5 != 4
+FAIL: test_counts_per_label_across_jobs (user='owner')  total 5 != 4
+FAIL: test_group_by_shape_type  extra row {'label': 'car', 'shape_type': 'points', 'count': 1}
+# views.py was restored afterwards (git diff --stat cvat/apps/test/views.py was empty)

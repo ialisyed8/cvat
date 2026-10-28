@@ -47,3 +47,15 @@ exit=0
 
 $ yarn run -T stylelint cvat-ui/src/components/analytics-report/styles.scss
 exit=0
+
+# Added after cvat/apps/test/tests was written (2026-10-29T02:52:34+05:00)
+$ black --check cvat/apps/test
+All done! ✨ 🍰 ✨
+9 files would be left unchanged.
+$ isort --check --diff --resolve-all-configs cvat/apps/test/tests/*.py
+exit=0
+$ pylint --rcfile .pylintrc cvat/apps/test
+--------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
+$ typos cvat/apps/test/tests
+exit=0
