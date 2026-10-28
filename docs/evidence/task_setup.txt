@@ -1,0 +1,17 @@
+# Task setup evidence (2026-10-29T01:46:23+05:00)
+# Images: first 200 of instances_val2017.json sorted by file_name, downloaded from http://images.cocodataset.org/val2017/<file_name>
+$ ls ../coco-data/val2017_subset200 | wc -l
+200
+$ head -1 / tail -1 of the sorted list
+000000000139.jpg
+000000020247.jpg
+
+$ GET /api/tasks/1 (selected fields)
+{'id': 1, 'name': 'COCO val2017 subset 200', 'size': 200, 'mode': 'annotation', 'status': 'annotation', 'owner': 'admin', 'jobs': 1}
+$ GET /api/labels?task_id=1 count
+80
+$ GET /api/jobs?task_id=1
+{'id': 1, 'start_frame': 0, 'stop_frame': 199, 'type': 'annotation'}
+$ GET /api/tasks/1/annotations: shape/track/tag counts
+shapes 1635 tracks 0 tags 0 by type {'polygon': 1619, 'mask': 16}
+First job URL: http://localhost:8080/tasks/1/jobs/1

@@ -1,0 +1,52 @@
+# Machine and environment (2026-10-29T01:45:35+05:00)
+
+$ lscpu (model, CPUs)
+CPU(s):                                  4
+Model name:                              Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
+Thread(s) per core:                      2
+Core(s) per socket:                      2
+
+$ powershell: host CPU cores/threads and RAM
+Cores: 2 LogicalProcessors: 4
+HostRAM_GB: 15.6
+Microsoft Windows 10 Pro 10.0.19045 build 19045
+DisplayVersion: 22H2
+
+$ free -h (WSL)
+               total        used        free      shared  buff/cache   available
+Mem:           9.7Gi       5.6Gi       293Mi       133Mi       4.1Gi       4.1Gi
+
+$ nproc (WSL)
+4
+
+$ lsb_release -ds; uname -r
+Ubuntu 26.04 LTS
+6.18.33.2-microsoft-standard-WSL2
+
+$ wsl.exe --version
+WSL version: 2.7.11.0
+Kernel version: 6.18.33.2-2
+WSLg version: 1.0.73.2
+
+$ docker version / compose version
+Client 29.8.0 / Server 29.8.0
+Docker Compose version v5.5.1
+
+$ node -v; yarn -v
+v22.23.4
+4.9.2
+
+# CVAT source
+$ git rev-parse 4a09e27ff869b7aebbfdb07b29c4a34904a0221d^{commit}
+4a09e27ff869b7aebbfdb07b29c4a34904a0221d
+
+# Prebuilt image vs repo base commit
+cvat/server:dev id=sha256:33441cdd1e4664c53384d82663470f4937b43a41522e1ec50851ae04ac52359f created=2026-10-27T23:24:54.550556041Z
+identical to 4a09e27ff: cvat/settings/base.py
+identical to 4a09e27ff: cvat/urls.py
+identical to 4a09e27ff: cvat/apps/engine/permissions.py
+identical to 4a09e27ff: cvat/apps/engine/models.py
+identical to 4a09e27ff: cvat/apps/engine/views.py
+identical to 4a09e27ff: cvat/apps/iam/permissions.py
+identical to 4a09e27ff: cvat/apps/engine/urls.py
+identical to 4a09e27ff: cvat/schema.yml
