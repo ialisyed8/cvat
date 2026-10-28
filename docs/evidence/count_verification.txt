@@ -1,0 +1,110 @@
+# Endpoint counts vs ../coco-data/expected_counts.txt (task 1, 200 images)
+# expected = COCO annotations per category in the filtered instances_val2017 JSON
+# shapes   = endpoint count (LabeledShape rows, top-level)
+# objects  = ungrouped shapes + distinct (frame, group) of grouped shapes, per label;
+#            CVAT's COCO import splits a multi-part segmentation into several polygons
+#            sharing one group id, so this re-joins them to compare with COCO objects
+
+source: /home/user/xis-assessment/coco-data/ann/annotations/instances_val2017.json
+selection: first 200 images of instances_val2017.json sorted by file_name
+images: 200
+annotations: 1460
+annotations_iscrowd: 16
+images_with_annotations: 200
+categories: 80
+first_image: 000000000139.jpg
+last_image: 000000020247.jpg
+per_category (category_id, name, count):
+
+label            expected  shapes  objects  shapes==exp  objects==exp
+person                515     571      515  False        True
+bicycle                11      13       11  False        True
+car                    46      57       46  False        True
+motorcycle             22      24       22  False        True
+airplane                6       6        6  True         True
+bus                    26      29       26  False        True
+train                   5       7        5  False        True
+truck                  15      18       15  False        True
+boat                    7       7        7  True         True
+traffic light          15      15       15  True         True
+fire hydrant            5       5        5  True         True
+stop sign               4       4        4  True         True
+parking meter           0       0        0  True         True
+bench                  15      21       15  False        True
+bird                   11      11       11  True         True
+cat                     7       7        7  True         True
+dog                     2       2        2  True         True
+horse                   9       9        9  True         True
+sheep                  10      11       10  False        True
+cow                     4       4        4  True         True
+elephant                6       7        6  False        True
+bear                    3       3        3  True         True
+zebra                  11      11       11  True         True
+giraffe                 1       1        1  True         True
+backpack               27      32       27  False        True
+umbrella                7       7        7  True         True
+handbag                21      24       21  False        True
+tie                    24      24       24  True         True
+suitcase                4       4        4  True         True
+frisbee                 9       9        9  True         True
+skis                    5      10        5  False        True
+snowboard               0       0        0  True         True
+sports ball             4      12        4  False        True
+kite                   19      21       19  False        True
+baseball bat            4       6        4  False        True
+baseball glove          6       6        6  True         True
+skateboard              6       7        6  False        True
+surfboard              10      10       10  True         True
+tennis racket           6       8        6  False        True
+bottle                 31      31       31  True         True
+wine glass             32      38       32  False        True
+cup                    49      50       49  False        True
+fork                   12      17       12  False        True
+knife                  21      26       21  False        True
+spoon                  13      16       13  False        True
+bowl                   31      32       31  False        True
+banana                 19      19       19  True         True
+apple                   4       6        4  False        True
+sandwich                8       8        8  True         True
+orange                  1       1        1  True         True
+broccoli               17      17       17  True         True
+carrot                 13      13       13  True         True
+hot dog                 3       3        3  True         True
+pizza                  13      13       13  True         True
+donut                   1       1        1  True         True
+cake                    3       3        3  True         True
+chair                  72      85       72  False        True
+couch                  12      20       12  False        True
+potted plant            8       8        8  True         True
+bed                     9      11        9  False        True
+dining table           29      34       29  False        True
+toilet                  4       4        4  True         True
+tv                     16      16       16  True         True
+laptop                 14      17       14  False        True
+mouse                   5       5        5  True         True
+remote                 10      15       10  False        True
+keyboard                9       9        9  True         True
+cell phone              9       9        9  True         True
+microwave               3       3        3  True         True
+oven                    2       2        2  True         True
+toaster                 0       0        0  True         True
+sink                    9      10        9  False        True
+refrigerator            5       5        5  True         True
+book                   37      37       37  True         True
+clock                   8       8        8  True         True
+vase                   14      14       14  True         True
+scissors                2       2        2  True         True
+teddy bear              4       4        4  True         True
+hair drier              0       0        0  True         True
+toothbrush              0       0        0  True         True
+
+labels: 80  labels in endpoint response (non-zero): 75
+unknown labels in endpoint response: []
+total expected: 1460  endpoint total (shapes): 1635  objects: 1460
+labels where shapes == expected: 48/80
+labels where objects == expected: 80/80
+
+## Shape count derived from the source JSON
+COCO non-crowd annotations: 1444  crowd (RLE) annotations: 16
+non-crowd annotations with >1 polygon part: 117  total parts in them: 292
+expected CVAT shapes = single-part + parts of multi-part + crowd masks = 1327 + 292 + 16 = 1635

@@ -9,6 +9,7 @@ import config from 'config';
 import { Project, Task, Job } from 'cvat-core-wrapper';
 import { CombinedState } from 'reducers';
 import PaidFeaturePlaceholder from 'components/paid-feature-placeholder/paid-feature-placeholder';
+import LabelCountsReport from './label-counts-report';
 import { TimePeriod } from '.';
 
 interface Props {
@@ -16,9 +17,14 @@ interface Props {
     timePeriod: TimePeriod | null;
 }
 
-function AnalyticsReportContent(): JSX.Element {
+function AnalyticsReportContent(props: Readonly<Props>): JSX.Element {
+    const { resource } = props;
+
     return (
-        <PaidFeaturePlaceholder featureDescription={config.PAID_PLACEHOLDER_CONFIG.features.analyticsReport} />
+        <>
+            {resource instanceof Task && <LabelCountsReport taskId={resource.id} />}
+            <PaidFeaturePlaceholder featureDescription={config.PAID_PLACEHOLDER_CONFIG.features.analyticsReport} />
+        </>
     );
 }
 
@@ -32,7 +38,7 @@ function AnalyticsReportContentWrap(props: Readonly<Props>): JSX.Element {
         return <Component {...props} />;
     }
 
-    return <AnalyticsReportContent />;
+    return <AnalyticsReportContent {...props} />;
 }
 
 export default React.memo(AnalyticsReportContentWrap);

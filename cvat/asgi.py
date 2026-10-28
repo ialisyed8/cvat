@@ -17,6 +17,7 @@ from django.core.asgi import get_asgi_application
 from django.core.handlers.asgi import ASGIHandler
 
 import cvat.utils.remote_debugger as debug
+from cvat.apps.test.live import LabelCountsWebSocketRouter
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cvat.settings.development")
 
@@ -39,3 +40,5 @@ if debug.is_debugging_enabled():
             return await super().handle(*args, **kwargs)
 
     application = DebuggerApp()
+
+application = LabelCountsWebSocketRouter(application)

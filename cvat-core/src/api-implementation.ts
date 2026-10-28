@@ -37,6 +37,7 @@ import {
 } from './server-response-types';
 import {
     AnalyticsEventsFilter, QualityConflictsFilter, QualityRequirementsFilter, ConsensusSettingsFilter,
+    LabelCountsFilter,
 } from './server-request-types';
 import {
     ConflictSeverity, getQualitySettingsSchemaDescriptions, QualityConflict,
@@ -599,6 +600,29 @@ export default function implementAPI(cvat: CVATCore): CVATCore {
             );
             return requirements;
         });
+    implementationMixin(cvat.analytics.labelCounts, async (
+        taskID: number,
+        filter: LabelCountsFilter,
+    ): ReturnType<CVATCore['analytics']['labelCounts']> => {
+        if (!isInteger(taskID)) {
+            throw new ArgumentError('Task ID must be an integer');
+        }
+
+        checkFilter(filter, {
+            groupBy: isString,
+        });
+
+        const params = fieldsToSnakeCase(filter);
+        const labelCounts = await serverProxy.analytics.labelCounts(taskID, params);
+        return {
+            taskId: labelCounts.task_id,
+            groupBy: labelCounts.group_by,
+            total: labelCounts.total,
+            results: labelCounts.results.map(({ label, shape_type: shapeType, count }) => ({
+                label, shapeType, count,
+            })),
+        };
+    });
     implementationMixin(cvat.analytics.events.export, async (
         filter: AnalyticsEventsFilter,
     ): ReturnType<CVATCore['analytics']['events']['export']> => {

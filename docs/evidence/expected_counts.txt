@@ -1,0 +1,90 @@
+source: ../coco-data/ann/annotations/instances_val2017.json
+selection: first 200 images of instances_val2017.json sorted by file_name
+images: 200
+annotations: 1460
+annotations_iscrowd: 16
+images_with_annotations: 200
+categories: 80
+first_image: 000000000139.jpg
+last_image: 000000020247.jpg
+per_category (category_id, name, count):
+1	person	515
+2	bicycle	11
+3	car	46
+4	motorcycle	22
+5	airplane	6
+6	bus	26
+7	train	5
+8	truck	15
+9	boat	7
+10	traffic light	15
+11	fire hydrant	5
+13	stop sign	4
+14	parking meter	0
+15	bench	15
+16	bird	11
+17	cat	7
+18	dog	2
+19	horse	9
+20	sheep	10
+21	cow	4
+22	elephant	6
+23	bear	3
+24	zebra	11
+25	giraffe	1
+27	backpack	27
+28	umbrella	7
+31	handbag	21
+32	tie	24
+33	suitcase	4
+34	frisbee	9
+35	skis	5
+36	snowboard	0
+37	sports ball	4
+38	kite	19
+39	baseball bat	4
+40	baseball glove	6
+41	skateboard	6
+42	surfboard	10
+43	tennis racket	6
+44	bottle	31
+46	wine glass	32
+47	cup	49
+48	fork	12
+49	knife	21
+50	spoon	13
+51	bowl	31
+52	banana	19
+53	apple	4
+54	sandwich	8
+55	orange	1
+56	broccoli	17
+57	carrot	13
+58	hot dog	3
+59	pizza	13
+60	donut	1
+61	cake	3
+62	chair	72
+63	couch	12
+64	potted plant	8
+65	bed	9
+67	dining table	29
+70	toilet	4
+72	tv	16
+73	laptop	14
+74	mouse	5
+75	remote	10
+76	keyboard	9
+77	cell phone	9
+78	microwave	3
+79	oven	2
+80	toaster	0
+81	sink	9
+82	refrigerator	5
+84	book	37
+85	clock	8
+86	vase	14
+87	scissors	2
+88	teddy bear	4
+89	hair drier	0
+90	toothbrush	0

@@ -1,0 +1,10 @@
+# WebSocket checks for ws://localhost:8080/api/annotation-analytics/tasks/<id>/label-counts/ws
+# client: python websockets, basic auth header; close codes are 4000 + HTTP status
+02:18:35 no login            -> close code 4401
+02:18:37 outsider            -> close code 4403
+02:18:39 admin, missing task -> close code 4404
+02:18:39 admin, foreign Origin http://evil.example -> close code 4403
+02:18:43 admin connected, first message: total=1635 person={'label': 'person', 'count': 571}
+02:18:48 after adding 1 person rectangle via REST: total=1636 person={'label': 'person', 'count': 572} (pushed 5.19 s after the PATCH)
+02:18:51 after deleting it again: total=1635 person={'label': 'person', 'count': 571} (pushed 3.02 s after the PATCH)
+02:18:56 no message during 5 s without changes (only changes are pushed)

@@ -5,6 +5,7 @@
 import {
     AnalyticsEventsFilter, QualityConflictsFilter, QualityReportsFilter,
     QualitySettingsFilter, QualityRequirementsFilter, ConsensusSettingsFilter, ApiTokensFilter,
+    LabelCountsFilter,
 } from './server-request-types';
 import PluginRegistry from './plugins';
 import serverProxy from './server-proxy';
@@ -55,7 +56,7 @@ import { setActionMetadata } from './annotations-actions/base-action';
 import {
     ArgumentError, DataError, Exception, ScriptingError, ServerError,
 } from './exceptions';
-import { PaginatedResource } from './core-types';
+import { LabelCounts, PaginatedResource } from './core-types';
 import { observe } from './capabilities';
 
 export default interface CVATCore {
@@ -178,6 +179,7 @@ export default interface CVATCore {
         };
     }
     analytics: {
+        labelCounts: (taskID: number, filter?: LabelCountsFilter) => Promise<LabelCounts>;
         quality: {
             reports: (filter: QualityReportsFilter, aggregate?: boolean) => Promise<PaginatedResource<QualityReport>>;
             conflicts: (filter: QualityConflictsFilter) => Promise<QualityConflict[]>;

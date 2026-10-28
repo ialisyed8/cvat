@@ -1,0 +1,35 @@
+# Access control proofs for the label-counts endpoint
+# date: 2026-10-29T01:44:22+05:00  commit: 35d3343a6
+# passwords replaced with *** in the commands below
+
+## 1. No login
+$ curl -s -i http://localhost:8080/api/annotation-analytics/tasks/1/label-counts
+HTTP/1.1 401 Unauthorized
+{"detail":"Authentication credentials were not provided."}
+
+## 2. Logged in as 'outsider' (normal user, not owner/assignee of task 1, no organization)
+$ curl -s -i -u outsider:*** http://localhost:8080/api/annotation-analytics/tasks/1/label-counts
+HTTP/1.1 403 Forbidden
+{"detail":"You do not have permission to perform this action."}
+
+
+## 3. Admin, task that does not exist
+$ curl -s -i -u admin:*** http://localhost:8080/api/annotation-analytics/tasks/999999/label-counts
+HTTP/1.1 404 Not Found
+{"detail":"No Task matches the given query."}
+
+## 4. Admin, task 1
+$ curl -s -i -u admin:*** http://localhost:8080/api/annotation-analytics/tasks/1/label-counts
+HTTP/1.1 200 OK
+{"task_id":1,"total":1635,"results":[{"label":"person","count":571},{"label":"chair","count":85},{"label":"car","count":57},{"label":"cup","count":50},{"label":"wine glass","count":38},{"label":"book","count":37},{"label":"dining table","count":34},{"label":"backpack","count":32},{"label":"bowl","count":32},{"label":"bottle","count":31},{"label":"bus","count":29},{"label":"knife","count":26},{"label":"handbag","count":24},{"label":"motorcycle","count":24},{"label":"tie","count":24},{"label":"bench","count":21},{"label":"kite","count":21},{"label":"couch","count":20},{"label":"banana","count":19},{"label":"truck","count":18},{"label":"broccoli","count":17},{"label":"fork","count":17},{"label":"laptop","count":17},{"label":"spoon","count":16},{"label":"tv","count":16},{"label":"remote","count":15},{"label":"traffic light","count":15},{"label":"vase","count":14},{"label":"bicycle","count":13},{"label":"carrot","count":13},{"label":"pizza","count":13},{"label":"sports ball","count":12},{"label":"bed","count":11},{"label":"bird","count":11},{"label":"sheep","count":11},{"label":"zebra","count":11},{"label":"sink","count":10},{"label":"skis","count":10},{"label":"surfboard","count":10},{"label":"cell phone","count":9},{"label":"frisbee","count":9},{"label":"horse","count":9},{"label":"keyboard","count":9},{"label":"clock","count":8},{"label":"potted plant","count":8},{"label":"sandwich","count":8},{"label":"tennis racket","count":8},{"label":"boat","count":7},{"label":"cat","count":7},{"label":"elephant","count":7},{"label":"skateboard","count":7},{"label":"train","count":7},{"label":"umbrella","count":7},{"label":"airplane","count":6},{"label":"apple","count":6},{"label":"baseball bat","count":6},{"label":"baseball glove","count":6},{"label":"fire hydrant","count":5},{"label":"mouse","count":5},{"label":"refrigerator","count":5},{"label":"cow","count":4},{"label":"stop sign","count":4},{"label":"suitcase","count":4},{"label":"teddy bear","count":4},{"label":"toilet","count":4},{"label":"bear","count":3},{"label":"cake","count":3},{"label":"hot dog","count":3},{"label":"microwave","count":3},{"label":"dog","count":2},{"label":"oven","count":2},{"label":"scissors","count":2},{"label":"donut","count":1},{"label":"giraffe","count":1},{"label":"orange","count":1}]}
+
+## Context: task 1 owner/assignee and outsider account
+task 1 owner: admin assignee: None organization: None
+outsider groups: ['user'] is_superuser: False
+tasks visible to outsider via /api/tasks: 0
+
+## Parity: the engine's own endpoints give the outsider the same answer
+$ curl -s -o /dev/null -w '%{http_code}' -u outsider:*** http://localhost:8080/api/tasks/1
+403
+$ curl -s -o /dev/null -w '%{http_code}' -u outsider:*** http://localhost:8080/api/tasks/1/annotations
+403

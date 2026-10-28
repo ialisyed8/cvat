@@ -1,0 +1,14 @@
+# Browser check of /tasks/:id/analytics (headless Chromium via Playwright, cvat-ui dev server on :3000 proxying to :8080)
+# The failed-request case is simulated by Playwright answering the label-counts request with 500.
+02:41:26 logged in, url=http://localhost:3000/tasks
+02:41:49 task page link -> http://localhost:3000/tasks/1/analytics; bars=75; first row=person=571; Total: 1635 shapes (tracks and tags are not counted)
+02:41:49 group by shape type: bars=80; rows with (mask)=5
+02:41:57 empty task 2: 'No annotations yet'
+02:42:04 failed request: 'Could not load annotation counts' / 'test failure'
+02:42:05 after Retry: bars=75
+02:42:05 label-counts responses seen by the browser:
+02:42:05   200 GET http://localhost:3000/api/annotation-analytics/tasks/1/label-counts?org=
+02:42:05   200 GET http://localhost:3000/api/annotation-analytics/tasks/1/label-counts?org=&group_by=shape_type
+02:42:05   200 GET http://localhost:3000/api/annotation-analytics/tasks/2/label-counts?org=
+02:42:05   500 GET http://localhost:3000/api/annotation-analytics/tasks/1/label-counts?org=
+02:42:05   200 GET http://localhost:3000/api/annotation-analytics/tasks/1/label-counts?org=

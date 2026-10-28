@@ -473,3 +473,14 @@ export interface SerializedTaskValidationLayout extends SerializedJobValidationL
     validation_frames?: number[];
     disabled_frames?: number[];
 }
+
+export interface SerializedLabelCounts {
+    task_id: number;
+    group_by: 'shape_type' | null;
+    total: number;
+    results: {
+        label: string;
+        shape_type?: ShapeType;
+        count: number;
+    }[];
+}
