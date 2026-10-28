@@ -1,0 +1,49 @@
+# Linters on files changed since 4a09e27ff (2026-10-29T02:42:45+05:00, HEAD 28cf48c78)
+# Python files: cvat/apps/test/__init__.py cvat/apps/test/apps.py cvat/apps/test/live.py cvat/apps/test/permissions.py cvat/apps/test/serializers.py cvat/apps/test/urls.py cvat/apps/test/views.py cvat/asgi.py cvat/settings/base.py cvat/urls.py
+# TS files: cvat-core/src/api-implementation.ts cvat-core/src/api.ts cvat-core/src/core-types.ts cvat-core/src/index.ts cvat-core/src/server-proxy.ts cvat-core/src/server-request-types.ts cvat-core/src/server-response-types.ts cvat-ui/src/components/analytics-report/analytics-report-content.tsx cvat-ui/src/components/analytics-report/label-counts-report.tsx cvat-ui/src/components/analytics-report/use-label-counts-live.ts cvat-ui/src/cvat-core-wrapper.ts
+
+$ black --check --diff <py files>   (black 26.10.1)
+All done! ✨ 🍰 ✨
+10 files would be left unchanged.
+
+$ isort --check --diff --resolve-all-configs <py files>   (isort 7.0.0)
+exit=0
+
+$ bandit -a file --ini .bandit -r cvat/apps/test cvat/asgi.py
+[main]	INFO	Using ini file for skipped tests
+[main]	INFO	Using command line arg for selected targets
+exit=0
+
+$ pylint --rcfile .pylintrc <py files>   (pylint 4.0.4 inside cvat_server, which has the Django deps)
+--------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
+
+$ typos <changed files and docs>
+exit=0
+
+$ python dev/check_changelog_fragments.py
+exit=0
+
+$ yarn run eslint <ts files> cvat-ui/webpack.config.js
+✖ 27 problems (0 errors, 27 warnings)
+exit=0
+# ESLint messages per file, and how many fall on lines added/changed since 4a09e27ff
+cvat-core/src/api-implementation.ts: errors=0 warnings=0 on_changed_lines=0
+cvat-core/src/api.ts: errors=0 warnings=0 on_changed_lines=0
+cvat-core/src/core-types.ts: errors=0 warnings=0 on_changed_lines=0
+cvat-core/src/index.ts: errors=0 warnings=0 on_changed_lines=0
+cvat-core/src/server-proxy.ts: errors=0 warnings=26 on_changed_lines=0
+cvat-core/src/server-request-types.ts: errors=0 warnings=0 on_changed_lines=0
+cvat-core/src/server-response-types.ts: errors=0 warnings=0 on_changed_lines=0
+cvat-ui/src/components/analytics-report/analytics-report-content.tsx: errors=0 warnings=0 on_changed_lines=0
+cvat-ui/src/components/analytics-report/label-counts-report.tsx: errors=0 warnings=0 on_changed_lines=0
+cvat-ui/src/components/analytics-report/use-label-counts-live.ts: errors=0 warnings=0 on_changed_lines=0
+cvat-ui/src/cvat-core-wrapper.ts: errors=0 warnings=0 on_changed_lines=0
+cvat-ui/webpack.config.js: errors=0 warnings=1 on_changed_lines=0
+    (file-level) File ignored because of a matching ignore pattern. Use "--no-ignore" to disable 
+
+$ yarn run type-check   (tsc -p cvat-ui/tsconfig.json)
+exit=0
+
+$ yarn run -T stylelint cvat-ui/src/components/analytics-report/styles.scss
+exit=0

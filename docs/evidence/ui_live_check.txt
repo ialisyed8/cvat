@@ -1,0 +1,16 @@
+# Browser check of live updates and reconnect on /tasks/1/analytics
+# (headless Chromium via Playwright, cvat-ui dev server on :3000 proxying HTTP and WebSocket to :8080)
+02:39:42 page open, status=Live, person=571
+02:39:46 added 1 person shape via REST -> chart shows person=572 after 2.8 s without reloading
+02:39:46 restarting cvat_server to drop the socket
+02:39:51 status=Reconnecting
+02:40:55 status=Live again 63.5 s after Reconnecting was seen
+02:40:57 deleted the shape via REST -> chart shows person=571 over the new socket
+02:40:57 label-counts WebSocket connections opened by the page: 7
+02:40:57   ws://localhost:3000/api/annotation-analytics/tasks/1/label-counts/ws
+02:40:57   ws://localhost:3000/api/annotation-analytics/tasks/1/label-counts/ws
+02:40:57   ws://localhost:3000/api/annotation-analytics/tasks/1/label-counts/ws
+02:40:57   ws://localhost:3000/api/annotation-analytics/tasks/1/label-counts/ws
+02:40:57   ws://localhost:3000/api/annotation-analytics/tasks/1/label-counts/ws
+02:40:57   ws://localhost:3000/api/annotation-analytics/tasks/1/label-counts/ws
+02:40:57   ws://localhost:3000/api/annotation-analytics/tasks/1/label-counts/ws
