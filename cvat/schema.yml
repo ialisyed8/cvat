@@ -12,6 +12,42 @@ info:
     name: MIT License
     url: https://en.wikipedia.org/wiki/MIT_License
 paths:
+  /api/annotation-analytics/tasks/{id}/label-counts:
+    get:
+      operationId: annotation_analytics_retrieve_tasks_label_counts
+      description: Counts top-level shapes (LabeledShape) in all jobs of the task.
+        Tracks, tags and skeleton elements are not included.
+      summary: Get the number of annotations per label in a task
+      parameters:
+      - in: query
+        name: group_by
+        schema:
+          type: string
+          enum:
+          - shape_type
+        description: Additionally split the counts of each label by shape type
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this task.
+        required: true
+      tags:
+      - annotation-analytics
+      security:
+      - tokenAuth: []
+      - accessTokenAuth: []
+      - sessionAuth: []
+        csrfAuth: []
+        csrfHeaderAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/vnd.cvat+json:
+              schema:
+                $ref: '#/components/schemas/LabelCounts'
+          description: ''
   /api/assets:
     post:
       operationId: assets_create
@@ -9821,6 +9857,37 @@ components:
           readOnly: true
       required:
       - name
+    LabelCount:
+      type: object
+      properties:
+        label:
+          type: string
+        shape_type:
+          type: string
+        count:
+          type: integer
+      required:
+      - count
+      - label
+    LabelCounts:
+      type: object
+      properties:
+        task_id:
+          type: integer
+        group_by:
+          type: string
+          nullable: true
+        total:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/LabelCount'
+      required:
+      - group_by
+      - results
+      - task_id
+      - total
     LabelMappingEntryRequest:
       type: object
       properties:
