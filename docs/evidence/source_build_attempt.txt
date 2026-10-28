@@ -1,0 +1,29 @@
+# First setup attempt (2026-10-29, ~00:50-01:06 PKT): building CVAT from source
+# The build log lived in a temporary folder that was lost when WSL restarted, so the lines
+# below are copied verbatim from the command outputs recorded in the session transcript.
+
+## Resources at the time
+$ lscpu | grep -E 'Model name|^CPU\(s\)|Thread|Core'
+CPU(s):                                  2
+Model name:                              Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
+Thread(s) per core:                      2
+Core(s) per socket:                      1
+$ free -h | head -2
+               total        used        free      shared  buff/cache   available
+Mem:           5.8Gi       3.0Gi        74Mi       108Mi       3.0Gi       2.8Gi
+$ docker info --format 'Docker VM: {{.NCPU}} CPUs, {{.MemTotal}} bytes'
+Docker VM: 2 CPUs, 6215016448 bytes
+
+## Attempt 1: docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+EXIT 1
+<3>WSL (2957817 - ) ERROR: UtilAcceptVsock:273: accept4 failed 110
+error getting credentials - err: exit status 1, out: ``
+# cause: credsStore "desktop.exe" in ~/.docker/config.json is a Windows helper called through
+# WSL interop, which timed out; worked around with a scratch DOCKER_CONFIG without credsStore
+
+## Attempt 2: same command with the scratch DOCKER_CONFIG
+# WSL restarted during the build and Docker became unreachable:
+$ docker ps
+failed to connect to the docker API at unix:///var/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /var/run/docker.sock: connect: no such file or directory
+$ uptime
+ 01:06:55 up 4 min,  1 user,  load average: 25.57, 9.52, 3.53

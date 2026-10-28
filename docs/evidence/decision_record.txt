@@ -1,0 +1,44 @@
+# Decision record numbers (2026-10-29T02:45:30+05:00, HEAD 524af14d8), session cookie auth, task 1
+# Rejected approach: count in the browser from the existing GET /api/tasks/1/annotations
+# Taken approach:    GET /api/annotation-analytics/tasks/1/label-counts (DB aggregate)
+
+$ curl -s -o /dev/null -b cookies.txt -w '%{http_code} %{size_download} bytes %{time_total} s' http://localhost:8080/api/tasks/1/annotations   (1 discarded + 5 runs)
+200 867994 bytes 0.421300 s
+200 867994 bytes 0.427952 s
+200 867994 bytes 0.610891 s
+200 867994 bytes 0.483094 s
+200 867994 bytes 0.646762 s
+
+$ curl -s -o /dev/null -b cookies.txt -w '%{http_code} %{size_download} bytes %{time_total} s' http://localhost:8080/api/annotation-analytics/tasks/1/label-counts   (1 discarded + 5 runs)
+200 2311 bytes 0.225538 s
+200 2311 bytes 0.095040 s
+200 2311 bytes 0.067904 s
+200 2311 bytes 0.089646 s
+200 2311 bytes 0.057816 s
+
+# Size of the change (git diff --stat 4a09e27ff..HEAD, code only, docs excluded)
+ cvat-core/src/api-implementation.ts                |  24 +++
+ cvat-core/src/api.ts                               |   4 +
+ cvat-core/src/core-types.ts                        |  11 ++
+ cvat-core/src/index.ts                             |   4 +-
+ cvat-core/src/server-proxy.ts                      |  17 +-
+ cvat-core/src/server-request-types.ts              |   5 +
+ cvat-core/src/server-response-types.ts             |  11 ++
+ .../analytics-report/analytics-report-content.tsx  |  12 +-
+ .../analytics-report/label-counts-report.tsx       | 177 +++++++++++++++++++++
+ .../src/components/analytics-report/styles.scss    |  22 +++
+ .../analytics-report/use-label-counts-live.ts      | 104 ++++++++++++
+ cvat-ui/src/cvat-core-wrapper.ts                   |   3 +-
+ cvat-ui/webpack.config.js                          |   5 +
+ cvat/apps/test/__init__.py                         |   3 +
+ cvat/apps/test/apps.py                             |   9 ++
+ cvat/apps/test/live.py                             | 126 +++++++++++++++
+ cvat/apps/test/permissions.py                      |  20 +++
+ cvat/apps/test/serializers.py                      |  22 +++
+ cvat/apps/test/urls.py                             |  14 ++
+ cvat/apps/test/views.py                            |  65 ++++++++
+ cvat/asgi.py                                       |   3 +
+ cvat/schema.yml                                    |  67 ++++++++
+ cvat/settings/base.py                              |   1 +
+ cvat/urls.py                                       |   3 +
+ 25 files changed, 733 insertions(+), 6 deletions(-)

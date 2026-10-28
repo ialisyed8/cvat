@@ -1,0 +1,104 @@
+# Hygiene check on lines added since 4a09e27ff (2026-10-29T02:53:02+05:00, HEAD 756be27e9)
+$ git diff 4a09e27ff..HEAD -- . ':!docs' | grep '^+' | grep -nE 'print\(|console\.(log|debug)|debugger|pdb|breakpoint\(|TODO|FIXME|XXX'
+matches: 0
+
+# All added comment lines (to check none is commented-out code):
++### Added
++// Copyright (C) CVAT.ai Corporation
++//
++// SPDX-License-Identifier: MIT
++// Copyright (C) CVAT.ai Corporation
++//
++// SPDX-License-Identifier: MIT
++// the server closes with 4000 + HTTP status; reconnecting does not help with these
++                // keep the browser's Host, so the backend can check the WebSocket Origin against it
++# Copyright (C) CVAT.ai Corporation
++#
++# SPDX-License-Identifier: MIT
++# Copyright (C) CVAT.ai Corporation
++#
++# SPDX-License-Identifier: MIT
++# Copyright (C) CVAT.ai Corporation
++#
++# SPDX-License-Identifier: MIT
++# Application close codes are 4000 + the HTTP status of the refused request,
++# e.g. 4401 (no login), 4403 (no access), 4404 (no such task).
++        # not a browser, the request is still authenticated as usual
++        # accept first, so that the client receives the application close code
++                # client messages are ignored and do not trigger extra polls
++# Copyright (C) CVAT.ai Corporation
++#
++# SPDX-License-Identifier: MIT
++# Copyright (C) CVAT.ai Corporation
++#
++# SPDX-License-Identifier: MIT
++# Copyright (C) CVAT.ai Corporation
++#
++# SPDX-License-Identifier: MIT
++# Copyright (C) CVAT.ai Corporation
++#
++# SPDX-License-Identifier: MIT
++        # an element of another shape must not be counted on its own
++# Copyright (C) CVAT.ai Corporation
++#
++# SPDX-License-Identifier: MIT
++# Copyright (C) CVAT.ai Corporation
++#
++# SPDX-License-Identifier: MIT
+
+$ git status --short (untracked or modified files left in the repo)
+ M docs/PLAN.md
+?? docs/evidence/decision_record.txt
+?? docs/evidence/hygiene.txt
+?? docs/evidence/source_build_attempt.txt
+count: 4
+
+$ git diff --name-status 4a09e27ff..HEAD
+A	changelog.d/20261029_020000_ialisyed8_label_counts.md
+M	cvat-core/src/api-implementation.ts
+M	cvat-core/src/api.ts
+M	cvat-core/src/core-types.ts
+M	cvat-core/src/index.ts
+M	cvat-core/src/server-proxy.ts
+M	cvat-core/src/server-request-types.ts
+M	cvat-core/src/server-response-types.ts
+M	cvat-ui/src/components/analytics-report/analytics-report-content.tsx
+A	cvat-ui/src/components/analytics-report/label-counts-report.tsx
+M	cvat-ui/src/components/analytics-report/styles.scss
+A	cvat-ui/src/components/analytics-report/use-label-counts-live.ts
+M	cvat-ui/src/cvat-core-wrapper.ts
+M	cvat-ui/webpack.config.js
+A	cvat/apps/test/__init__.py
+A	cvat/apps/test/apps.py
+A	cvat/apps/test/live.py
+A	cvat/apps/test/permissions.py
+A	cvat/apps/test/serializers.py
+A	cvat/apps/test/tests/__init__.py
+A	cvat/apps/test/tests/test_label_counts.py
+A	cvat/apps/test/urls.py
+A	cvat/apps/test/views.py
+M	cvat/asgi.py
+M	cvat/schema.yml
+M	cvat/settings/base.py
+M	cvat/urls.py
+A	docs/DEFINITION_OF_DONE.md
+A	docs/OBJECTIVES.md
+A	docs/PLAN.md
+A	docs/evidence/access_control.txt
+A	docs/evidence/count_verification.txt
+A	docs/evidence/environment.txt
+A	docs/evidence/expected_counts.txt
+A	docs/evidence/group_by_shape_type.txt
+A	docs/evidence/lint.txt
+A	docs/evidence/mo1_timing.txt
+A	docs/evidence/task_setup.txt
+A	docs/evidence/ui_browser_check.txt
+A	docs/evidence/ui_label_counts.png
+A	docs/evidence/ui_label_counts_by_shape_type.png
+A	docs/evidence/ui_label_counts_empty.png
+A	docs/evidence/ui_label_counts_error.png
+A	docs/evidence/ui_live_check.txt
+A	docs/evidence/ui_live_reconnecting.png
+A	docs/evidence/ui_live_update.png
+A	docs/evidence/unit_tests.txt
+A	docs/evidence/ws_check.txt
