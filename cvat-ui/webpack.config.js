@@ -84,6 +84,11 @@ module.exports = (env, argv = {}) => {
                 'Service-Worker-Allowed': '/',
             },
             proxy: [{
+                // keep the browser's Host, so the backend can check the WebSocket Origin against it
+                context: (param) => param.match(/^\/api\/.*\/ws$/),
+                target: env && env.API_URL,
+                ws: true,
+            }, {
                 context: (param) =>
                     param.match(
                         /\/api\/.*|analytics\/.*|static\/.*|admin(?:\/(.*))?.*|profiler(?:\/(.*))?.*|documentation\/.*|django-rq(?:\/(.*))?/gm,

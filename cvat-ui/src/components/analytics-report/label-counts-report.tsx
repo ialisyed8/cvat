@@ -8,10 +8,13 @@ import Card from 'antd/lib/card';
 import Empty from 'antd/lib/empty';
 import Radio from 'antd/lib/radio';
 import Result from 'antd/lib/result';
+import Space from 'antd/lib/space';
+import Tag from 'antd/lib/tag';
 import Text from 'antd/lib/typography/Text';
 
 import { LabelCounts, getCore } from 'cvat-core-wrapper';
 import CVATLoadingSpinner from 'components/common/loading-spinner';
+import { LiveStatus, useLabelCountsLive } from './use-label-counts-live';
 
 const core = getCore();
 
@@ -22,6 +25,13 @@ const COUNT_WIDTH = 60;
 const CHART_WIDTH = LABEL_WIDTH + BAR_AREA_WIDTH + COUNT_WIDTH;
 
 type GroupBy = 'label' | 'shape_type';
+
+const LIVE_STATUS_TAGS: Record<LiveStatus, { color: string; text: string }> = {
+    [LiveStatus.CONNECTING]: { color: 'default', text: 'Connecting to live updates' },
+    [LiveStatus.LIVE]: { color: 'success', text: 'Live' },
+    [LiveStatus.RECONNECTING]: { color: 'warning', text: 'Reconnecting' },
+    [LiveStatus.STOPPED]: { color: 'default', text: 'Live updates stopped' },
+};
 
 interface ChartProps {
     labelCounts: LabelCounts;
@@ -104,6 +114,13 @@ function LabelCountsReport(props: Readonly<Props>): JSX.Element {
         fetchLabelCounts();
     }, [fetchLabelCounts]);
 
+    const liveStatus = useLabelCountsLive(
+        taskId,
+        groupBy === 'shape_type' ? groupBy : null,
+        !fetching && !error,
+        setLabelCounts,
+    );
+
     let content: JSX.Element | null = null;
     if (fetching) {
         content = <CVATLoadingSpinner />;
@@ -133,16 +150,23 @@ function LabelCountsReport(props: Readonly<Props>): JSX.Element {
             className='cvat-label-counts-report'
             title='Annotations per label'
             extra={(
-                <Radio.Group
-                    value={groupBy}
-                    disabled={fetching}
-                    onChange={(event) => setGroupBy(event.target.value)}
-                    optionType='button'
-                    options={[
-                        { label: 'By label', value: 'label' },
-                        { label: 'By label and shape type', value: 'shape_type' },
-                    ]}
-                />
+                <Space>
+                    {!fetching && !error && (
+                        <Tag className='cvat-label-counts-live-status' color={LIVE_STATUS_TAGS[liveStatus].color}>
+                            {LIVE_STATUS_TAGS[liveStatus].text}
+                        </Tag>
+                    )}
+                    <Radio.Group
+                        value={groupBy}
+                        disabled={fetching}
+                        onChange={(event) => setGroupBy(event.target.value)}
+                        optionType='button'
+                        options={[
+                            { label: 'By label', value: 'label' },
+                            { label: 'By label and shape type', value: 'shape_type' },
+                        ]}
+                    />
+                </Space>
             )}
         >
             {content}
