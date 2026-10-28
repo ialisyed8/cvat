@@ -1,0 +1,418 @@
+# group_by=shape_type (2026-10-29T01:47:55+05:00, code: the commit that adds group_by, on top of 123346db9)
+# Why: one label can mix cheap boxes with costly polygons/masks; splitting by shape type shows annotation effort and import conversions (here COCO crowd regions became masks).
+
+$ curl -s -u admin:*** 'http://localhost:8080/api/annotation-analytics/tasks/1/label-counts?group_by=shape_type'
+{
+    "task_id": 1,
+    "group_by": "shape_type",
+    "total": 1635,
+    "results": [
+        {
+            "label": "person",
+            "shape_type": "polygon",
+            "count": 560
+        },
+        {
+            "label": "chair",
+            "shape_type": "polygon",
+            "count": 84
+        },
+        {
+            "label": "car",
+            "shape_type": "polygon",
+            "count": 57
+        },
+        {
+            "label": "cup",
+            "shape_type": "polygon",
+            "count": 50
+        },
+        {
+            "label": "wine glass",
+            "shape_type": "polygon",
+            "count": 38
+        },
+        {
+            "label": "book",
+            "shape_type": "polygon",
+            "count": 35
+        },
+        {
+            "label": "dining table",
+            "shape_type": "polygon",
+            "count": 34
+        },
+        {
+            "label": "backpack",
+            "shape_type": "polygon",
+            "count": 32
+        },
+        {
+            "label": "bowl",
+            "shape_type": "polygon",
+            "count": 32
+        },
+        {
+            "label": "bottle",
+            "shape_type": "polygon",
+            "count": 31
+        },
+        {
+            "label": "bus",
+            "shape_type": "polygon",
+            "count": 28
+        },
+        {
+            "label": "knife",
+            "shape_type": "polygon",
+            "count": 26
+        },
+        {
+            "label": "handbag",
+            "shape_type": "polygon",
+            "count": 24
+        },
+        {
+            "label": "tie",
+            "shape_type": "polygon",
+            "count": 24
+        },
+        {
+            "label": "motorcycle",
+            "shape_type": "polygon",
+            "count": 23
+        },
+        {
+            "label": "bench",
+            "shape_type": "polygon",
+            "count": 21
+        },
+        {
+            "label": "kite",
+            "shape_type": "polygon",
+            "count": 21
+        },
+        {
+            "label": "couch",
+            "shape_type": "polygon",
+            "count": 20
+        },
+        {
+            "label": "banana",
+            "shape_type": "polygon",
+            "count": 19
+        },
+        {
+            "label": "truck",
+            "shape_type": "polygon",
+            "count": 18
+        },
+        {
+            "label": "broccoli",
+            "shape_type": "polygon",
+            "count": 17
+        },
+        {
+            "label": "fork",
+            "shape_type": "polygon",
+            "count": 17
+        },
+        {
+            "label": "laptop",
+            "shape_type": "polygon",
+            "count": 17
+        },
+        {
+            "label": "spoon",
+            "shape_type": "polygon",
+            "count": 16
+        },
+        {
+            "label": "tv",
+            "shape_type": "polygon",
+            "count": 16
+        },
+        {
+            "label": "remote",
+            "shape_type": "polygon",
+            "count": 15
+        },
+        {
+            "label": "traffic light",
+            "shape_type": "polygon",
+            "count": 15
+        },
+        {
+            "label": "vase",
+            "shape_type": "polygon",
+            "count": 14
+        },
+        {
+            "label": "bicycle",
+            "shape_type": "polygon",
+            "count": 13
+        },
+        {
+            "label": "carrot",
+            "shape_type": "polygon",
+            "count": 13
+        },
+        {
+            "label": "pizza",
+            "shape_type": "polygon",
+            "count": 13
+        },
+        {
+            "label": "sports ball",
+            "shape_type": "polygon",
+            "count": 12
+        },
+        {
+            "label": "bed",
+            "shape_type": "polygon",
+            "count": 11
+        },
+        {
+            "label": "bird",
+            "shape_type": "polygon",
+            "count": 11
+        },
+        {
+            "label": "person",
+            "shape_type": "mask",
+            "count": 11
+        },
+        {
+            "label": "sheep",
+            "shape_type": "polygon",
+            "count": 11
+        },
+        {
+            "label": "zebra",
+            "shape_type": "polygon",
+            "count": 11
+        },
+        {
+            "label": "sink",
+            "shape_type": "polygon",
+            "count": 10
+        },
+        {
+            "label": "skis",
+            "shape_type": "polygon",
+            "count": 10
+        },
+        {
+            "label": "surfboard",
+            "shape_type": "polygon",
+            "count": 10
+        },
+        {
+            "label": "cell phone",
+            "shape_type": "polygon",
+            "count": 9
+        },
+        {
+            "label": "frisbee",
+            "shape_type": "polygon",
+            "count": 9
+        },
+        {
+            "label": "horse",
+            "shape_type": "polygon",
+            "count": 9
+        },
+        {
+            "label": "keyboard",
+            "shape_type": "polygon",
+            "count": 9
+        },
+        {
+            "label": "clock",
+            "shape_type": "polygon",
+            "count": 8
+        },
+        {
+            "label": "potted plant",
+            "shape_type": "polygon",
+            "count": 8
+        },
+        {
+            "label": "sandwich",
+            "shape_type": "polygon",
+            "count": 8
+        },
+        {
+            "label": "tennis racket",
+            "shape_type": "polygon",
+            "count": 8
+        },
+        {
+            "label": "boat",
+            "shape_type": "polygon",
+            "count": 7
+        },
+        {
+            "label": "cat",
+            "shape_type": "polygon",
+            "count": 7
+        },
+        {
+            "label": "elephant",
+            "shape_type": "polygon",
+            "count": 7
+        },
+        {
+            "label": "skateboard",
+            "shape_type": "polygon",
+            "count": 7
+        },
+        {
+            "label": "train",
+            "shape_type": "polygon",
+            "count": 7
+        },
+        {
+            "label": "umbrella",
+            "shape_type": "polygon",
+            "count": 7
+        },
+        {
+            "label": "airplane",
+            "shape_type": "polygon",
+            "count": 6
+        },
+        {
+            "label": "apple",
+            "shape_type": "polygon",
+            "count": 6
+        },
+        {
+            "label": "baseball bat",
+            "shape_type": "polygon",
+            "count": 6
+        },
+        {
+            "label": "baseball glove",
+            "shape_type": "polygon",
+            "count": 6
+        },
+        {
+            "label": "fire hydrant",
+            "shape_type": "polygon",
+            "count": 5
+        },
+        {
+            "label": "mouse",
+            "shape_type": "polygon",
+            "count": 5
+        },
+        {
+            "label": "refrigerator",
+            "shape_type": "polygon",
+            "count": 5
+        },
+        {
+            "label": "cow",
+            "shape_type": "polygon",
+            "count": 4
+        },
+        {
+            "label": "stop sign",
+            "shape_type": "polygon",
+            "count": 4
+        },
+        {
+            "label": "suitcase",
+            "shape_type": "polygon",
+            "count": 4
+        },
+        {
+            "label": "teddy bear",
+            "shape_type": "polygon",
+            "count": 4
+        },
+        {
+            "label": "toilet",
+            "shape_type": "polygon",
+            "count": 4
+        },
+        {
+            "label": "bear",
+            "shape_type": "polygon",
+            "count": 3
+        },
+        {
+            "label": "cake",
+            "shape_type": "polygon",
+            "count": 3
+        },
+        {
+            "label": "hot dog",
+            "shape_type": "polygon",
+            "count": 3
+        },
+        {
+            "label": "microwave",
+            "shape_type": "polygon",
+            "count": 3
+        },
+        {
+            "label": "book",
+            "shape_type": "mask",
+            "count": 2
+        },
+        {
+            "label": "dog",
+            "shape_type": "polygon",
+            "count": 2
+        },
+        {
+            "label": "oven",
+            "shape_type": "polygon",
+            "count": 2
+        },
+        {
+            "label": "scissors",
+            "shape_type": "polygon",
+            "count": 2
+        },
+        {
+            "label": "bus",
+            "shape_type": "mask",
+            "count": 1
+        },
+        {
+            "label": "chair",
+            "shape_type": "mask",
+            "count": 1
+        },
+        {
+            "label": "donut",
+            "shape_type": "polygon",
+            "count": 1
+        },
+        {
+            "label": "giraffe",
+            "shape_type": "polygon",
+            "count": 1
+        },
+        {
+            "label": "motorcycle",
+            "shape_type": "mask",
+            "count": 1
+        },
+        {
+            "label": "orange",
+            "shape_type": "polygon",
+            "count": 1
+        }
+    ]
+}
+
+$ curl -s -i -u admin:*** 'http://localhost:8080/api/annotation-analytics/tasks/1/label-counts?group_by=color'
+HTTP/1.1 400 Bad Request
+{"group_by":["\"color\" is not a valid choice."]}
+
+# Cross-check: shape types in GET /api/tasks/1/annotations
+{'polygon': 1619, 'mask': 16}
