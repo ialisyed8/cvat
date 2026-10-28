@@ -1,0 +1,49 @@
+# MO-1 measurement (2026-10-29T01:48:18+05:00, code at 597e52669)
+# Command: curl -s -o /dev/null -w '%{http_code} %{time_total}\n' -u admin:*** http://localhost:8080/api/annotation-analytics/tasks/1/label-counts
+# 1 warm-up request (discarded), then 5 measured runs, sequential
+warm-up (discarded): 200 0.911637
+run 1: 200 0.841764
+run 2: 200 0.907520
+run 3: 200 0.946493
+run 4: 200 1.075170
+run 5: 200 0.899143
+
+# Same protocol, session cookie auth (what cvat-ui uses after login)
+# Login: curl -s -c cookies.txt -H 'Content-Type: application/json' -d '{"username":"admin","password":"***"}' http://localhost:8080/api/auth/login
+# Command: curl -s -o /dev/null -w '%{http_code} %{time_total}\n' -b cookies.txt http://localhost:8080/api/annotation-analytics/tasks/1/label-counts
+2026-10-29T01:49:10+05:00
+warm-up (discarded): 200 0.057829
+run 1: 200 0.053658
+run 2: 200 0.052867
+run 3: 200 0.078532
+run 4: 200 0.065039
+run 5: 200 0.070024
+
+# Diagnosis: where the basic-auth time goes
+# GET /api/server/about (no auth), 3 runs:
+0.011666
+0.011946
+0.015533
+# GET /api/users/self with basic auth (no analytics code involved), 3 runs:
+0.910794
+0.901305
+1.046307
+# GET /api/users/self with session cookie, 3 runs:
+0.056332
+0.050994
+0.040922
+# Password hasher and iterations in the server:
+django.contrib.auth.hashers.PBKDF2PasswordHasher iterations = 1000000
+# Time of one check_password() call inside cvat_server:
+check_password: 955 ms
+# The aggregate query alone, inside cvat_server (fresh QuerySet each run, 1 discarded + 5 runs):
+75 rows in 12.4 ms
+75 rows in 18.8 ms
+75 rows in 22.4 ms
+75 rows in 28.2 ms
+75 rows in 9.9 ms
+SQL: SELECT "engine_label"."name" AS "label_name", COUNT("engine_labeledshape"."id") AS "count" FROM "engine_labeledshape" INNER JOIN "engine_job" ON ("engine_labeledshape"."job_id" = "engine_job"."id") INNER JOIN "engine_segment" ON ("engine_job"."segment_id" = "engine_segment"."id") INNER JOIN "engine_label" ON ("engine_labeledshape"."label_id" = "engine_label"."id") WHERE ("engine_segment"."task_id" = 1 AND "engine_labeledshape"."parent_id" IS NULL) GROUP BY 1 ORDER BY 2 DESC, 1 ASC
+
+# Summary computed from the runs above
+basic auth   (MO-1 as written): median 907.5 ms, min 841.8 ms, max 1075.2 ms, target 200 ms -> MISSED
+session auth (cvat-ui path):    median 65.0 ms, min 52.9 ms, max 78.5 ms, target 200 ms -> MET
