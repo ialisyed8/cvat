@@ -14,6 +14,8 @@
 
 .cvat-analytics-inner {
     @include cvat-management-page-inner;
+
+    overflow-y: auto;
 }
 
 .cvat-analytics-inner-wrapper {
@@ -27,4 +29,24 @@
 .cvat-analytics-export-button {
     margin-left: $grid-unit-size * 2;
     padding: 0;
+}
+
+.cvat-label-counts-report {
+    margin-bottom: $grid-unit-size * 2;
+}
+
+.cvat-label-counts-chart {
+    display: block;
+    width: 100%;
+    margin-top: $grid-unit-size;
+}
+
+.cvat-label-counts-chart-label,
+.cvat-label-counts-chart-count {
+    fill: $text-color;
+    font-size: 12px;
+}
+
+.cvat-label-counts-chart-bar {
+    fill: $info-icon-color;
 }

@@ -23,7 +23,7 @@ import {
     OrganizationMembersFilter, AnalyticsEventsFilter, ApiTokensFilter, ApiTokenModifiableFields,
     UserGrowthDataModifiableFields,
 } from 'cvat-core/src/server-request-types';
-import { UpdateStatusData } from 'cvat-core/src/core-types';
+import { LabelCounts, UpdateStatusData } from 'cvat-core/src/core-types';
 import { Job, Task } from 'cvat-core/src/session';
 import Project from 'cvat-core/src/project';
 import {
@@ -163,6 +163,7 @@ export type {
     ProjectOrTaskOrJob,
     RequestOperation,
     UpdateStatusData,
+    LabelCounts,
     OrganizationMembersFilter,
     QualitySettingsSaveFields,
     QualityRequirementSaveFields,
